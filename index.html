@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selfie Photobooth</title>
+ <!-- Bootstrap css -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- JQuery -->
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+     <style>
+        body {
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center left;
+            background-attachment: fixed;
+        }
+           button:focus {
+            outline: none;
+            border: none;
+        }
+
+        #collage {
+            width: inherit;
+        }
+
+        #logo {
+            width: inherit;
+            margin-top: 40%;
+        }
+
+        #start-button {
+            background: transparent;
+            margin-left: 25%;
+            width: 50%;
+            border: none;
+            outline: none;
+        }
+
+        #startButtonImage:hover {
+            content: url("Assets/Hover_Start.png");
+        }
+
+        #nameFieldImage {
+            display: block;
+            margin-top: 30%;
+            width: 100%;
+        }
+
+        #username {
+            position: absolute;
+            text-align: center;
+            margin: -14% 5%;
+            width: 84%;
+            height: 8vh;
+            padding: 0;
+            border: none;
+            outline: none;
+            background-color: transparent;
+            font-size: 2.5vw;
+            font-weight: bold;
+            color: black;
+        }
+
+        #username::placeholder {
+            font-size: 2vw;
+            color: gray;
+            font-style: italic;
+        }
+
+        #usernameSubmit {
+            background: transparent;
+            margin-left: 8%;
+            width: 35%;
+            border-radius: 50%;
+            border: none;
+            outline: none;
+        }
+
+        #submitButtonImage:hover {
+            content: url('Assets/Hover_Submit.png');
+        }
+
+        .view {
+            width: fit-content;
+        }
+
+        #frame {
+            position: fixed;
+            width: 53%;
+            height: 39.7vw;
+            margin: 2% 23%;
+        }
+
+        #player {
+            position: fixed;
+            width: 60%;
+            margin: 3% 19.5%;
+            height: 38vw;
+            z-index: -1;
+        }
+
+        #previousButton {
+            position: fixed;
+            background: transparent;
+            margin: 20% 10%;
+            width: 10%;
+            border-radius: 50%;
+            border: none;
+            outline: none;
+        }
+
+        #previousButtonImage:hover {
+            content: url('Assets/Hover_Left_arrow_2.png');
+        }
+
+        #nextButton {
+            position: fixed;
+            background: transparent;
+            margin: 20% 79%;
+            width: 10%;
+            border-radius: 50%;
+            border: none;
+            outline: none;
+        }
+
+        #nextButtonImage:hover {
+            content: url('Assets/Hover_Right_arrow_2.png');
+        }
+
+        #templates {
+            position: fixed;
+            width: 40.3%;
+            /* height: 39vw; */
+            margin: 10% 19%;
+            z-index: -1;
+        }
+
+        #captureButton {
+            position: fixed;
+            background: transparent;
+            width: 18%;
+            top: 40%;
+            right:2%;
+            border: none;
+            outline: none;
+        }
+
+        #captureButtonImage:hover {
+            content: url('Assets/Say_smile!_button.png');
+        }
+
+        #canvas {
+            position: fixed;
+            margin: 6% 23%;
+            width: 56%;
+        }
+
+        #retryButton {
+            position: fixed;
+            background: transparent;
+            border: none;
+            outline: none;
+            top:80%;
+            left:6%;
+            width: 18%;
+        }
+
+        #retryImage:hover {
+            content: url('Assets/Hover_try_again.png');
+        }
+
+        #downloadButton {
+            position: fixed;
+            background: transparent;
+            border: none;
+            outline: none;
+            top:80%;
+            right:6%;
+            width: 18%;
+        }
+
+        #downloadButtonImage:hover {
+            content: url('Assets/Hover_Download.png');
+        }
+
+        .btn {
+            white-space: nowrap;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            border: 1px solid transparent;
+        }
+        </style>
+</head>
+<body style="background-image: url('Assets/Home_screen_bg.png');overflow: hidden; ">
+     <div class="container-fluid" id="Index" style="display:block">
+        <div class="row">
+            <div class="col-8">
+                <img id="collage" width="100%" src="Assets/Home_screen_Collage.png" alt="Home_Collage_Image" />
+            </div>
+            <div class="col-4" style="margin:0px;">
+                <!-- <img id="logo" style="margin-top:25%;" src="Assets/MAGAZINE_photobooth.png" alt="Magazine_Photobooth_Image" /> -->
+                <button class="btn" id="start-button" onclick="camScene(); startMedia();">
+                    <img id="startButtonImage" style="width: 100%;" src="Assets/StartButton.png" alt="Start_Btn_Image" />
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+    <div id="Scene-3" style="display:none">
+        <img id="frame" style="" src="Assets/frame.png" />
+        <video id="player" autoplay></video>
+        <!-- </div> -->
+        <!-- <img id="frame" src="Assets/Seen_3_asset/frame.png" /> -->
+
+        <img id="templates" alt="" />
+        <button class="btn" id="captureButton" onclick="capture()">
+            <img id="captureButtonImage" src="Assets/Take_a_picture_button.png" style="width: 100%; margin-top:-7%" alt="captureButtonImage" />
+        </button>
+
+    </div>
+    <div id="Scene-4" style="position: absolute; display:none">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="justify-content-center">
+                    <canvas id="canvas" width="1080" height="720"></canvas>
+                    <button class="btn" id="retryButton" onclick="retry()">
+                        <img id="retryImage" src="Assets/tryAgainButton.png" style="width: 100%;" alt="retryButton" />
+                    </button>
+                    <button class="btn" id="downloadButton" onclick="download()">
+                        <img id="downloadButtonImage" src="Assets/downloadButton.png" style="width: 100%;" alt="downloadButtonImage" />
+                    </button>
+                </div>
+                <div id="username" style="visibility: hidden;">demo</div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+         function camScene() {
+            document.getElementById("Index").style.display = "none";
+            document.getElementById("Scene-3").style.display = "block";
+            document.body.style.backgroundImage = "url('Assets/BACKGROUND.png')";
+        }
+       
+    </script>
+      <script src="Assets/js/selfiebooth.js"></script>
+</body>
+</html>
